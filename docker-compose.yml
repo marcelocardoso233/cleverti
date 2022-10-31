@@ -1,0 +1,25 @@
+version: '3.3'
+
+services:
+  cleverti:
+    build:
+      context: .
+    command: python manage.py runserver 0.0.0.0:8000
+    ports:
+      - "8000:8000"
+    depends_on:
+      - "db"
+    networks:
+      - cleverti
+
+  db:
+    image: postgres
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: test
+    networks:
+      - cleverti
+
+networks:
+  cleverti:
